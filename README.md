@@ -83,10 +83,10 @@ options:
   -g MEMORY, --memory MEMORY
                         Maximum available memory in GB (default: 1)
   -n WORD_LENGTH, --word_length WORD_LENGTH
-                        Word length (default: 3)
+                        Word length (default: 9)
   -pC PHYLOGENY_CUTOFF, --phylogeny_cutoff PHYLOGENY_CUTOFF
                         Minimum length of nucleotides prior to alignment
-                        (default : 500)
+                        (default : 300)
   -r RDP_CONFIG, --rdp_config RDP_CONFIG
                         Path where internal parameters of RDP scanner is saved
   -x COUNTS, --counts COUNTS
@@ -96,6 +96,25 @@ options:
   -t THREADS, --threads THREADS
                         Number of threads (default: 4)
 ```
+### Typical Usage
+We strongy recommend running `CorEvol.py` from SPYDER Ipython terminal. This recommendation is mostly to circumnavigate a bug in the `codeml` package.
+```
+%run CorEvol.py -i ./Test -o ~/Out
+```
+The output folder contains the following files and folders.
+| Name|Type|Content |
+| --- | --- | --- |
+| Neutral_Selection| Directory | A directory containing all the cluster of sequences that have undergone neutral selection event|
+| NonRecombination_files | Directory | A directory containing `_results.csv : Recombination detection output file`, `_formatted.phy` and `_tree.nwk` files needed to run `codeml` for each of the clusters where recombination is not detected|
+| Positive_Selection | Directory | A directory containing all the cluster of sequences that have undergone positive selection event|
+| Purifying_Selection | Directory | A directory containing all the cluster of sequences that have undergone negative selection event|
+| Recombination_Clusters | Directory | A directory containing `_results.csv : Recombination detection output file` for each of the clusters where recombination is detected|
+| concatenated_seq.aln | File | ClustalW format alignment file for all the core, non-redundant, non-recombinant sequences, joined end to end | 
+| concatenated_seq.fas | File | FASTA format alignment file for all the core, non-redundant, non-recombinant sequences, joined end to end | 
+| Pan_matrix.xlsx | File | CD-HIT output, gnerated in amtrix format such that each row represent Cluster number and each column represent each sample. Background color of each row selected such that green represent ω >= 1,blue represent ω = 0, red represent ω < 1. Those without color are non-core/recombinant clusters|
+| RDP_error.tsv | File | Cluster numbers for which Recombination could not be detected because there were less than three unique sequences in the cluster |
+| Selection_table.tsv | File | A matrix with ω value for the clusters |
+
 ## License
 This project is licensed under the GNU GPLv3 License. See the LICENSE file for details.
 ```
