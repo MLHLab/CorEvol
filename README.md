@@ -28,6 +28,8 @@ graph LR
 
 
 ## Installation
+The latest version of CorEvol is available [here](https://github.com/AbhishakeL/CorEvol)
+
 ### Dummy installation
 1. Create a conda environment.
 ```
